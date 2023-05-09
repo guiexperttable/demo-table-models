@@ -21,11 +21,9 @@ const data: number[][] = `2009 27.9 36.7 42.4 54.5 62.5 67.5 72.7 75.7 66.3 55.0
 
 
 function getHsl(v: number): string {
-  const normalizedValue0to1 = v * 27.9 / 77.4 * v;
-  const h = (1 - normalizedValue0to1) * 360;
-  const s = 100;
-  const l = 50;
-  return `hsl(${h},${s},${l})`;
+  const normalizedValue0to1 = (v - 27.9) / (77.4 - 27.9);
+  const h = Math.floor((1 - normalizedValue0to1) * 360);
+  return `hsl(${h}deg ,100% ,50%)`;
 }
 
 
@@ -38,7 +36,8 @@ export function createHeatMapModel(): TableModelIf {
     if (columnIndex > 0) {
       const n = bodyAreaModel.getValueAt(rowIndex, columnIndex) as number;
       return {
-        "backgroundColor": getHsl(n)
+        "background": getHsl(n)
+        // "color": getHsl(n),
       };
     }
     return undefined;
