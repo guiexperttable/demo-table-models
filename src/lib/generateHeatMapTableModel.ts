@@ -19,11 +19,43 @@ const data: number[][] = `2009 27.9 36.7 42.4 54.5 62.5 67.5 72.7 75.7 66.3 55.0
     .map(s => Number(s))
   );
 
+const MIN = 27.9;
+const MAX = 77.4;
 
 function getHsl(v: number): string {
-  const normalizedValue0to1 = (v - 27.9) / (77.4 - 27.9);
+
+  const normalizedValue0to1 = (v - MIN) / (MAX - MIN);
   const h = Math.floor((1 - normalizedValue0to1) * 360);
   return `hsl(${h}deg ,100% ,50%)`;
+}
+
+class RGB {
+  constructor(
+    public r: number,
+    public g: number,
+    public b: number
+  ) {
+  }
+}
+
+function normalize(value: number, fromSource: number, toSource: number, fromTarget: number, toTarget: number) {
+  return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
+}
+
+function getTwoColorGradientRGB(min: number, max: number, value: number): string {
+  var startRGB = new RGB(255, 0, 0);
+  var endRGB = new RGB(0, 255, 0);
+  var percentFade = normalize(value, min, max, 0, 1);
+
+  var diffRed = endRGB.r - startRGB.r;
+  var diffGreen = endRGB.g - startRGB.g;
+  var diffBlue = endRGB.b - startRGB.b;
+
+  diffRed = (diffRed * percentFade) + startRGB.r;
+  diffGreen = (diffGreen * percentFade) + startRGB.g;
+  diffBlue = (diffBlue * percentFade) + startRGB.b;
+
+  return `rgb(${Math.round(diffRed)}, ${Math.round(diffGreen)}, ${Math.round(diffBlue)})`;
 }
 
 
@@ -36,7 +68,8 @@ export function createHeatMapModel(): TableModelIf {
     if (columnIndex > 0) {
       const n = bodyAreaModel.getValueAt(rowIndex, columnIndex) as number;
       return {
-        "background": getHsl(n)
+        "background": getTwoColorGradientRGB(MIN, MAX, n)
+        //"background": getHsl(n)
         // "color": getHsl(n),
       };
     }
