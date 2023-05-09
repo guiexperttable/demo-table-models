@@ -233,6 +233,7 @@ const columnDefs: ColumnDefIf[] = [
     bodyRenderer: new DateToTecCellRenderer()
   })
 ];
+export const COL_IDX_UPDATED_AT = columnDefs.length - 1;
 
 export const tableOptions = {
   ...new TableOptions(),
