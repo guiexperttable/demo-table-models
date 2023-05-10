@@ -44,7 +44,7 @@ function normalize(value: number, fromSource: number, toSource: number, fromTarg
 
 function getTwoColorGradientRGB(min: number, max: number, value: number): string {
   var startRGB = new RGB(255, 0, 0);
-  var endRGB = new RGB(0, 255, 0);
+  var endRGB = new RGB(0, 0, 255);
   var percentFade = normalize(value, min, max, 0, 1);
 
   var diffRed = endRGB.r - startRGB.r;
@@ -68,9 +68,8 @@ export function createHeatMapModel(): TableModelIf {
     if (columnIndex > 0) {
       const n = bodyAreaModel.getValueAt(rowIndex, columnIndex) as number;
       return {
-        "background": getTwoColorGradientRGB(MIN, MAX, n)
-        //"background": getHsl(n)
-        // "color": getHsl(n),
+        "background": getTwoColorGradientRGB(MIN, MAX, n),
+        "color": "#fff"
       };
     }
     return undefined;
