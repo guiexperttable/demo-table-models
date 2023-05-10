@@ -1,7 +1,7 @@
 import { getRawData, RawData } from "./generateHeatmapSeattleData";
 import { AreaModel, TableModelFactory, TableModelIf } from "@guiexpert/table";
 
-const defaultRowHeights = 30;
+const defaultRowHeights = 24;
 const defaultColumnWidth = 3;
 
 /*
@@ -71,6 +71,20 @@ function getTwoColorGradientRGB(min: number, max: number, value: number): string
   diffBlue = (diffBlue * percentFade) + startRGB.b;
 
   return `rgb(${Math.round(diffRed)}, ${Math.round(diffGreen)}, ${Math.round(diffBlue)})`;
+}
+
+// TODO hier gehts weiter
+
+interface TwoColorGradientArg {
+  minValue: number;
+  minColor: RGB;
+  maxValue: number;
+  maxColor: RGB;
+}
+
+interface TreeColorGradientArg extends TwoColorGradientArg {
+  middleValue: number;
+  middleColor: RGB;
 }
 
 
