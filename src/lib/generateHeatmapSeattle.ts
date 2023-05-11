@@ -8,7 +8,7 @@ import {
   ThreeColorGradientArg
 } from "@guiexpert/table";
 
-const defaultRowHeights = 24;
+const defaultRowHeights = 30;
 const defaultColumnWidth = 3;
 const data: RawData[] = getRawData();
 
@@ -26,7 +26,7 @@ data.forEach(item => {
 const days = Object.keys(map);
 const times = ["06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
   "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00",
-  "01:00", "02:00", "03:00", "04:00", "05:00"];
+  "00:00", "01:00", "02:00", "03:00", "04:00", "05:00"];
 
 
 function getMinMax(): [number, number] {
@@ -42,10 +42,13 @@ function getMinMax(): [number, number] {
 const [MIN, MAX] = getMinMax();
 
 export function createHeatMapSeattleModel(): TableModelIf {
-  const bodyAreaModel = new HeatMapSeattleModel();
+  const bodyAreaModel = new HeatMapSeattleBodyModel();
+  const footerAreaModel = new HeatMapSeattleFooterModel();
   const columnSizes = [60, ...(new Array(days.length).fill(defaultColumnWidth))];
+
   return TableModelFactory.createByAreaModelsParam({
     bodyAreaModel,
+    footerAreaModel,
     columnSizes
   });
 }
@@ -53,7 +56,7 @@ export function createHeatMapSeattleModel(): TableModelIf {
 // TODO  split   time vs date, see https://vega.github.io/vega/examples/heatmap/
 // colors  from   #430355 -> #1F908D  -> #FAE625
 
-class HeatMapSeattleModel extends AreaModel {
+class HeatMapSeattleBodyModel extends AreaModel {
 
   override getRowCount(): number {
     return times.length;
@@ -77,7 +80,7 @@ class HeatMapSeattleModel extends AreaModel {
     const date = days[columnIndex];
     const time = times[rowIndex];
     if (map[date] && map[date][time]) {
-      return `${date} ${time} : ${map[date][time].temperature}`;
+      return `${date} ${time} → ${map[date][time].temperature}`;
     }
     return "";
   }
@@ -101,11 +104,67 @@ class HeatMapSeattleModel extends AreaModel {
     const minColor = new ColorRgb(67, 1, 84);
     const middleColor = new ColorRgb(31, 144, 141);
     const maxColor = new ColorRgb(250, 230, 37);
-    const p = new ThreeColorGradientArg(MIN, minColor, (MAX + MIN) / 2, middleColor, MAX, maxColor);
+    const MIDDLE = (MAX + MIN) / 2;
+    const p = new ThreeColorGradientArg(MIN, minColor, MIDDLE, middleColor, MAX, maxColor);
 
     return {
       "background": GeCssColorUtil.getThreeColorGradientRGB(n, p),
-      "color": "#fff"
+      "color": "transparent" // we only want to show the bg color
+    };
+  }
+}
+
+
+class HeatMapSeattleFooterModel extends AreaModel {
+
+  override getRowCount(): number {
+    return 1;
+  }
+
+  override getRowHeight(rowIndex: number): number {
+    return defaultRowHeights;
+  }
+
+  override getValueAt(rowIndex: number, columnIndex: number): any {
+    if (columnIndex === 1) return "Jan";
+    if (columnIndex === 32) return "Feb";
+    if (columnIndex === 60) return "Mar";
+    if (columnIndex === 91) return "Apr";
+    if (columnIndex === 121) return "May";
+    if (columnIndex === 152) return "Jun";
+    if (columnIndex === 182) return "Jul";
+    if (columnIndex === 213) return "Aug";
+    if (columnIndex === 244) return "Sep";
+    if (columnIndex === 274) return "Oct";
+    if (columnIndex === 305) return "Nov";
+    if (columnIndex === 335) return "Dec";
+    return "";
+  }
+
+  override getColspanAt(rowIndex: number, columnIndex: number): number {
+    if (columnIndex === 1) return 31;
+    if (columnIndex === 32) return 28;
+    if (columnIndex === 60) return 31;
+    if (columnIndex === 91) return 30;
+    if (columnIndex === 121) return 31;
+    if (columnIndex === 152) return 30;
+    if (columnIndex === 182) return 31;
+    if (columnIndex === 213) return 31;
+    if (columnIndex === 244) return 30;
+    if (columnIndex === 274) return 31;
+    if (columnIndex === 305) return 30;
+    if (columnIndex === 335) return 31;
+    return 0;
+  }
+
+  override getMaxColspan(): number {
+    return 32;
+  }
+
+  override getCustomStyleAt(rowIndex: number, columnIndex: number): { [p: string]: string } | undefined {
+    return {
+      "background": "#fff",
+      "border-left": columnIndex > 2 ? "solid 1px #555" : "none"
     };
   }
 }
