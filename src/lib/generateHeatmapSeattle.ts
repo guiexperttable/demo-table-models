@@ -1,20 +1,17 @@
 import { getRawData, RawData } from "./generateHeatmapSeattleData";
-import { AreaModel, TableModelFactory, TableModelIf } from "@guiexpert/table";
+import {
+  AreaModel,
+  ColorRgb,
+  GeCssColorUtil,
+  TableModelFactory,
+  TableModelIf,
+  ThreeColorGradientArg
+} from "@guiexpert/table";
 
 const defaultRowHeights = 24;
 const defaultColumnWidth = 3;
-
-/*
-  "date": "2010-12-30T09:00:00",
-  "pressure": "1017.9",
-  "temperature": "3.8",
-  "wind": "3.8"
-*/
-
 const data: RawData[] = getRawData();
 
-// TODO  split   time vs date, see https://vega.github.io/vega/examples/heatmap/
-// colors  from   #430355 -> #1F908D  -> #FAE625
 
 const map: { [key: string]: { [key: string]: RawData } } = {};
 data.forEach(item => {
@@ -24,7 +21,7 @@ data.forEach(item => {
   }
   map[d][t.substring(0, 5)] = item;
 });
-console.info(map);
+
 
 const days = Object.keys(map);
 const times = ["06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00",
@@ -44,50 +41,6 @@ function getMinMax(): [number, number] {
 
 const [MIN, MAX] = getMinMax();
 
-class RGB {
-  constructor(
-    public r: number,
-    public g: number,
-    public b: number
-  ) {
-  }
-}
-
-function normalize(value: number, fromSource: number, toSource: number, fromTarget: number, toTarget: number) {
-  return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
-}
-
-function getTwoColorGradientRGB(min: number, max: number, value: number): string {
-  var startRGB = new RGB(255, 0, 0);
-  var endRGB = new RGB(0, 0, 255);
-  var percentFade = normalize(value, min, max, 0, 1);
-
-  var diffRed = endRGB.r - startRGB.r;
-  var diffGreen = endRGB.g - startRGB.g;
-  var diffBlue = endRGB.b - startRGB.b;
-
-  diffRed = (diffRed * percentFade) + startRGB.r;
-  diffGreen = (diffGreen * percentFade) + startRGB.g;
-  diffBlue = (diffBlue * percentFade) + startRGB.b;
-
-  return `rgb(${Math.round(diffRed)}, ${Math.round(diffGreen)}, ${Math.round(diffBlue)})`;
-}
-
-// TODO hier gehts weiter
-
-interface TwoColorGradientArg {
-  minValue: number;
-  minColor: RGB;
-  maxValue: number;
-  maxColor: RGB;
-}
-
-interface TreeColorGradientArg extends TwoColorGradientArg {
-  middleValue: number;
-  middleColor: RGB;
-}
-
-
 export function createHeatMapSeattleModel(): TableModelIf {
   const bodyAreaModel = new HeatMapSeattleModel();
   const columnSizes = [60, ...(new Array(days.length).fill(defaultColumnWidth))];
@@ -97,6 +50,8 @@ export function createHeatMapSeattleModel(): TableModelIf {
   });
 }
 
+// TODO  split   time vs date, see https://vega.github.io/vega/examples/heatmap/
+// colors  from   #430355 -> #1F908D  -> #FAE625
 
 class HeatMapSeattleModel extends AreaModel {
 
@@ -115,7 +70,9 @@ class HeatMapSeattleModel extends AreaModel {
 
 
   override getTooltipAt(rowIndex: number, columnIndex: number): any {
-    if (columnIndex === 0) return "";
+    if (columnIndex === 0) {
+      return "";
+    }
     columnIndex--;
     const date = days[columnIndex];
     const time = times[rowIndex];
@@ -126,15 +83,28 @@ class HeatMapSeattleModel extends AreaModel {
   }
 
   override getCustomStyleAt(rowIndex: number, columnIndex: number): { [p: string]: string } | undefined {
-    if (columnIndex === 0) return undefined;
+    if (columnIndex === 0) {
+      return undefined;
+    }
     columnIndex--;
     const date = days[columnIndex];
     const time = times[rowIndex];
     if (!map[date] || !map[date][time]) return undefined;
 
     const n = map[date][time].temperature;
+
+    // const red = new ColorRgb(255, 0, 0);
+    // const blue = new ColorRgb(0, 0, 255);
+    // const p = new TwoColorGradientArg(MIN, red, MAX, blue);
+    // -> "background": GeCssColorUtil.getTwoColorGradientRGB(n, p),
+
+    const minColor = new ColorRgb(67, 1, 84);
+    const middleColor = new ColorRgb(31, 144, 141);
+    const maxColor = new ColorRgb(250, 230, 37);
+    const p = new ThreeColorGradientArg(MIN, minColor, (MAX + MIN) / 2, middleColor, MAX, maxColor);
+
     return {
-      "background": getTwoColorGradientRGB(MIN, MAX, n),
+      "background": GeCssColorUtil.getThreeColorGradientRGB(n, p),
       "color": "#fff"
     };
   }
