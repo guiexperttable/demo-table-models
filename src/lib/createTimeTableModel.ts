@@ -355,5 +355,6 @@ class TimeTableFooterModel extends AreaModelArrayArray<string> {
     if (columnIndex === 2) return ["ge-text-align-right", "ge-font-weight-bold"];
     return [];
   }
+
 }
 
