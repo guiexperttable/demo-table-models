@@ -33,14 +33,14 @@ export const data: TeamDataIf[] = (
       city: "London",
       location: "Building A",
       team: { name: "Team LAA", active: true },
-      data: [123.12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      data: [123, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     {
       id: 2,
       city: "London",
       location: "Building A",
       team: { name: "Team LAB", active: true },
-      data: [0, 432.11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      data: [0, 432, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     {
       id: 3,
@@ -237,7 +237,8 @@ export const COL_IDX_UPDATED_AT = columnDefs.length - 1;
 
 export const tableOptions = {
   ...new TableOptions(),
-  hoverColumnVisible: false,
+  hoverRowVisible: true,
+  hoverColumnVisible: true,
   defaultRowHeights: {
     header: 34,
     body: 34,
@@ -338,13 +339,13 @@ class TimeTableFooterModel extends AreaModelArrayArray<string> {
   constructor(rowHeight: number) {
     super(
       "footer",
-      [["", "", "Sum of Quarters:", "", "123.12", "432.11", "", "", "", "", "", "", "", "", "", "", ""]],
+      [["", "", "Sum of Quarters:", "", "123", "432", "", "", "", "", "", "", "", "", "", "", ""]],
       rowHeight
     );
   }
 
-  override getColspanAt(rowIndex: number, columnIndex: number): number {
-    if (rowIndex === 0 && columnIndex == 2) {
+  override getColspanAt(_rowIndex: number, columnIndex: number): number {
+    if (columnIndex == 0 || columnIndex == 2) {
       return 2;
     }
     return 1;
