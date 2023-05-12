@@ -237,8 +237,8 @@ export const COL_IDX_UPDATED_AT = columnDefs.length - 1;
 
 export const tableOptions = {
   ...new TableOptions(),
-  hoverRowVisible: true,
-  hoverColumnVisible: true,
+  hoverRowVisible: false,
+  hoverColumnVisible: false,
   defaultRowHeights: {
     header: 34,
     body: 34,
