@@ -1,5 +1,5 @@
 import {
-  AreaModelArrayArray,
+  AreaModelArrayOfArrays,
   AreaModelObjectArrayWithColumndefs,
   ColumnDef,
   ColumnDefIf,
@@ -296,7 +296,7 @@ class TimeTableBodyModel extends AreaModelObjectArrayWithColumndefs<TeamDataIf> 
   }
 }
 
-class TimeTableHeaderModel extends AreaModelArrayArray<string> {
+class TimeTableHeaderModel extends AreaModelArrayOfArrays<string> {
   constructor(rowHeight: number) {
     super(
       "header",
@@ -335,7 +335,7 @@ class TimeTableHeaderModel extends AreaModelArrayArray<string> {
 }
 
 
-class TimeTableFooterModel extends AreaModelArrayArray<string> {
+class TimeTableFooterModel extends AreaModelArrayOfArrays<string> {
   constructor(rowHeight: number) {
     super(
       "footer",

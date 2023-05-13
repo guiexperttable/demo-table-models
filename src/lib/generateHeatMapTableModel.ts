@@ -1,4 +1,4 @@
-import { AreaModelArrayArray, TableModelFactory, TableModelIf } from "@guiexpert/table";
+import { AreaModelArrayOfArrays, TableModelFactory, TableModelIf } from "@guiexpert/table";
 
 const defaultRowHeights = 50;
 
@@ -60,9 +60,9 @@ function getTwoColorGradientRGB(min: number, max: number, value: number): string
 
 
 export function createHeatMapModel(): TableModelIf {
-  const bodyAreaModel = new AreaModelArrayArray("body", data, defaultRowHeights);
+  const bodyAreaModel = new AreaModelArrayOfArrays("body", data, defaultRowHeights);
   const columnSizes = new Array(headerLabel.length).fill(50);
-  const headerAreaModel = new AreaModelArrayArray("header", [headerLabel], defaultRowHeights);
+  const headerAreaModel = new AreaModelArrayOfArrays("header", [headerLabel], defaultRowHeights);
 
   bodyAreaModel.getCustomStyleAt = (rowIndex: number, columnIndex: number) => {
     if (columnIndex > 0) {
