@@ -5,7 +5,6 @@ export function generateSimpleModel(
   columnCount: number = 1000
 ): TableModelIf {
 
-
   const data: string[][] = [];
   for (let r = 0; r < rowCount; r++) {
     const row: string[] = [];
@@ -29,7 +28,7 @@ export function generateSimpleModel(
     }
   }
   const overridingColumnWidth = 100;
-  return TableModelFactory.createByArrayOfArrayParams({
+  return TableModelFactory.createByArrayOfArraysParams({
     columnLabels: [labels],
     data,
     footer,
