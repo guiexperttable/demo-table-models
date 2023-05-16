@@ -29,11 +29,11 @@ export function generateSimpleModel(
   }
   const overridingColumnWidth = 100;
   return TableModelFactory.createByArrayOfArraysParams({
-    columnLabels: [labels],
+    columnLabels: [labels, labels],
     data,
     footer,
     overridingColumnWidth,
-    fixedLeftColumnCount: 1,
-    fixedRightColumnCount: 1
+    fixedLeftColumnCount: 2,
+    fixedRightColumnCount: 2
   });
 }
