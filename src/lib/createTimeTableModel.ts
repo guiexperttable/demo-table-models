@@ -205,7 +205,7 @@ export function createTreeTableRows(): TreeRow<TeamDataIf>[] {
 }
 */
 const columnDefs: ColumnDefIf[] = [
-  new ColumnDef("city", "City", new Size(100, "px")),
+  new ColumnDef("city", "City", new Size(90, "px")),
   new ColumnDef("location", "Location", new Size(100, "px")),
   new ColumnDef("team.name", "Team", new Size(100, "px")),
   ColumnDef.create({
@@ -229,7 +229,7 @@ const columnDefs: ColumnDefIf[] = [
   ColumnDef.create({
     property: "updatedAt",
     headerLabel: "Updated at",
-    width: new Size(200, "px"),
+    width: new Size(175, "px"),
     bodyRenderer: new DateToTecCellRenderer()
   })
 ];
