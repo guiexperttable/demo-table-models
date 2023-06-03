@@ -24,7 +24,7 @@ export function generateSimpleModel(
     columnLabels,
     data,
     footer,
-    overridingColumnWidth: 100,
+    overridingColumnWidth: 120,
     fixedLeftColumnCount: 2,
     fixedRightColumnCount: 2
   });
