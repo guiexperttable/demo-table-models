@@ -10,19 +10,21 @@ export function generateSimpleModel(
       Array.from(Array(columnCount).keys()).map((c) => `${r}/${c}`)
     );
 
-  const labels: string[] = Array.from(Array(columnCount).keys()).map((c) => `H ${c}`);
+  const columnLabels: string[][] =
+    Array.from(Array(2).keys()).map((r) =>
+      Array.from(Array(columnCount).keys()).map((c) => `H${r}/${c}`)
+    );
 
   const footer: string[][] =
     Array.from(Array(2).keys()).map((r) =>
       Array.from(Array(columnCount).keys()).map((c) => `F${r}/${c}`)
     );
 
-  const overridingColumnWidth = 100;
   return TableModelFactory.createByArrayOfArraysParams({
-    columnLabels: [labels, labels],
+    columnLabels,
     data,
     footer,
-    overridingColumnWidth,
+    overridingColumnWidth: 100,
     fixedLeftColumnCount: 2,
     fixedRightColumnCount: 2
   });
