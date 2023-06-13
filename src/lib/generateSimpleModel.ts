@@ -1,30 +1,30 @@
-import { TableModelFactory, TableModelIf } from "@guiexpert/table";
+import { Factory, TableModelIf } from "@guiexpert/table";
 
 export function generateSimpleModel(
   rowCount: number = 1000,
   columnCount: number = 1000
 ): TableModelIf {
 
-  const data: string[][] =
+  const bodyData: string[][] =
     Array.from(Array(rowCount).keys()).map((r) =>
       Array.from(Array(columnCount).keys()).map((c) => `${r}/${c}`)
     );
 
-  const columnLabels: string[][] =
+  const headerData: string[][] =
     Array.from(Array(2).keys()).map((r) =>
       Array.from(Array(columnCount).keys()).map((c) => `H${r}/${c}`)
     );
 
-  const footer: string[][] =
+  const footerData: string[][] =
     Array.from(Array(2).keys()).map((r) =>
       Array.from(Array(columnCount).keys()).map((c) => `F${r}/${c}`)
     );
 
-  return TableModelFactory.createByArrayOfArraysParams({
-    columnLabels,
-    data,
-    footer,
-    overridingColumnWidth: 120,
+  return Factory.createTableModel({
+    headerData,
+    bodyData,
+    footerData,
+    overridingColumnWidth: 110,
     fixedLeftColumnCount: 2,
     fixedRightColumnCount: 2
   });
