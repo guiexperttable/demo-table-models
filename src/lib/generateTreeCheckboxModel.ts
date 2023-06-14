@@ -4,6 +4,7 @@ import {
   ColumnDef,
   ColumnDefIf,
   DateToIntlDDMMYYYYCellRenderer,
+  Factory,
   MaleFemaleToIconCellRenderer,
   Size,
   TableModelFactory,
@@ -42,13 +43,12 @@ export function generateTreeCheckboxModel(): TableModelIf {
   ];
 
   const tree = TableModelFactory.buildTreeRows<PersonIf>(data, "friends");
-  const tableModel = TableModelFactory.buildByTypedRows(
-    tree,
+  return Factory.createTableModel({
+    rows: tree,
     columnDefs,
     tableOptions,
-    2,
-    0
-  );
-  return tableModel;
+    fixedLeftColumnCount: 2,
+    fixedRightColumnCount: 0
+  });
 }
 
