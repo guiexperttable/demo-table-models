@@ -3,7 +3,7 @@ import {
   AreaModelObjectArrayWithColumndefs,
   ColumnDef,
   ColumnDefIf,
-  DateToTecCellRenderer,
+  DateToTecCellRenderer, Factory,
   Size,
   TableModelFactory,
   TableModelIf,
@@ -258,7 +258,7 @@ export function createTimeTableModel(): TableModelIf {
   // });
 
   const defaultRowHeights = tableOptions.defaultRowHeights;
-  const tm = TableModelFactory.createByAreaModelsParam({
+  const tm = Factory.createTableModel({
     headerAreaModel: new TimeTableHeaderModel(defaultRowHeights.header),
     bodyAreaModel: new TimeTableBodyModel(defaultRowHeights.body),
     footerAreaModel: new TimeTableFooterModel(defaultRowHeights.footer),
