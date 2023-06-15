@@ -65,14 +65,16 @@ export function createHeatMapModel(): TableModelIf {
   const headerAreaModel = new AreaModelArrayOfArrays("header", [headerLabel], defaultRowHeights);
 
   bodyAreaModel.getCustomStyleAt = (rowIndex: number, columnIndex: number) => {
+    let ret:{ [key: string]: string } = {};
     if (columnIndex > 0) {
       const n = bodyAreaModel.getValueAt(rowIndex, columnIndex) as number;
-      return {
+      ret = {
         "background": getTwoColorGradientRGB(MIN, MAX, n),
         "color": "#fff"
       };
     }
-    return undefined;
+    ret['paddingTop'] =  '10px';
+    return ret;
   };
 
   return TableFactory.createTableModel({
