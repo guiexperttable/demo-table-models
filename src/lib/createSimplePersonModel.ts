@@ -3,7 +3,7 @@ import {
   CellRendererIf,
   ColumnDef,
   ColumnDefIf,
-  Factory,
+  TableFactory,
   px100,
   px120,
   px150,
@@ -252,7 +252,7 @@ export function createSimplePersonModel(): TableModelIf {
   const tableOptions = createTableOptions();
   const rows: SimplePersonIf[] = createTableRows();
   const columnDefs: ColumnDefIf[] = createColumnDefs();
-  return Factory.createTableModel({
+  return TableFactory.createTableModel({
     rows,
     columnDefs,
     tableOptions,

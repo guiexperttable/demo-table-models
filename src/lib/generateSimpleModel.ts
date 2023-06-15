@@ -1,4 +1,4 @@
-import { Factory, TableModelIf } from "@guiexpert/table";
+import { TableFactory, TableModelIf } from "@guiexpert/table";
 
 export function generateSimpleModel(
   rowCount: number = 1000,
@@ -20,7 +20,7 @@ export function generateSimpleModel(
       Array.from(Array(columnCount).keys()).map((c) => `F${r}/${c}`)
     );
 
-  return Factory.createTableModel({
+  return TableFactory.createTableModel({
     headerData,
     bodyData,
     footerData,

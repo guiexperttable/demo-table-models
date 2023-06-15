@@ -1,4 +1,4 @@
-import { AreaModelArrayOfArrays, Factory, TableModelFactory, TableModelIf } from "@guiexpert/table";
+import { AreaModelArrayOfArrays, TableFactory, TreeFactory, TableModelIf } from "@guiexpert/table";
 
 const defaultRowHeights = 50;
 
@@ -75,7 +75,7 @@ export function createHeatMapModel(): TableModelIf {
     return undefined;
   };
 
-  return Factory.createTableModel({
+  return TableFactory.createTableModel({
     headerAreaModel,
     bodyAreaModel,
     columnSizes

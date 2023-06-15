@@ -1,5 +1,5 @@
 import { getRawData, RawData } from "./generateHeatmapSeattleData";
-import { AreaModel, ColorRgb, Factory, GeCssColorUtil, TableModelIf, ThreeColorGradientArg } from "@guiexpert/table";
+import { AreaModel, ColorRgb, TableFactory, GeCssColorUtil, TableModelIf, ThreeColorGradientArg } from "@guiexpert/table";
 
 const defaultRowHeights = 30;
 const defaultColumnWidth = 3;
@@ -39,7 +39,7 @@ export function createHeatMapSeattleModel(): TableModelIf {
   const footerAreaModel = new HeatMapSeattleFooterModel();
   const columnSizes = [60, ...(new Array(days.length).fill(defaultColumnWidth))];
 
-  return Factory.createTableModel({
+  return TableFactory.createTableModel({
     bodyAreaModel,
     footerAreaModel,
     columnSizes
