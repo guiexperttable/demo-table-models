@@ -8,13 +8,15 @@ const headerGroups: CellGroupIf[] = [
       {
         data: "Gold AB",
         toggle: true,
-        ownColumn: true,
+        property: 'GOLD_AB',
         children: [
           {
-            data: "Gold A"
+            data: "Gold A",
+            property: 'GOLD_A'
           },
           {
-            data: "Gold B"
+            data: "Gold B",
+            property: 'GOLD_B'
           }
         ]
       },
@@ -22,13 +24,16 @@ const headerGroups: CellGroupIf[] = [
         data: "Gold CD",
         children: [
           {
-            data: "Gold C"
+            data: "Gold C",
+            property: 'GOLD_C'
           },
           {
-            data: "Gold D"
+            data: "Gold D",
+            property: 'GOLD_D'
           },
           {
             data: "Gold Sum",
+            property: 'GOLD_SUM_AB',
             visibility: 'inverted'
           }
         ]
@@ -42,17 +47,20 @@ const headerGroups: CellGroupIf[] = [
       {
         data: "HOH AB",
         toggle: true,
-        ownColumn: true,
+        property: 'HOH_AB',
         children: [
           {
             data: "HOH Loc",
+            property: 'HOH_LOC',
             visibility: 'always'
           },
           {
-            data: "HOH A"
+            data: "HOH A",
+            property: 'HOH_A'
           },
           {
-            data: "HOH B"
+            data: "HOH B",
+            property: 'HOH_B'
           }
         ]
       },
@@ -61,10 +69,12 @@ const headerGroups: CellGroupIf[] = [
         closed: true,
         children: [
           {
-            data: "HOH C"
+            data: "HOH C",
+            property: 'HOH_C'
           },
           {
-            data: "HOH D"
+            data: "HOH D",
+            property: 'HOH_D'
           }
         ]
       }
