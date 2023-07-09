@@ -1,7 +1,7 @@
-import { CellGroupIf } from "@guiexpert/table";
+import { CellGroupIf, ColumnDef, ColumnDefIf, px100, px120 } from "@guiexpert/table";
 
 
-const headerGroups: CellGroupIf[] = [
+export const headerGroups: CellGroupIf[] = [
   {
     data: "Gold",
     toggle: true,
@@ -34,7 +34,7 @@ const headerGroups: CellGroupIf[] = [
           },
           {
             data: "Gold Sum",
-            property: "GOLD_SUM_AB",
+            property: "GOLD_SUM_CD",
             visibility: "inverted"
           }
         ]
@@ -83,4 +83,63 @@ const headerGroups: CellGroupIf[] = [
   }
 ];
 
-export default headerGroups;
+
+/*
+export const columnDefs: ColumnDefIf[] = [
+   ColumnDef.create({
+      property: "GOLD_AB",
+      headerLabel: "Gold AB",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "GOLD_A",
+      headerLabel: "Gold A",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "GOLD_B",
+      headerLabel: "Gold B",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "GOLD_C",
+      headerLabel: "Gold C",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "GOLD_D",
+      headerLabel: "Gold D",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "HOH_AB",
+      headerLabel: "HOH AB",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "HOH_LOC",
+      headerLabel: "HOH Loc",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "HOH_A",
+      headerLabel: "HOH A",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "HOH_B",
+      headerLabel: "HOH B",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "HOH_C",
+      headerLabel: "HOH C",
+      width: px100
+    }),
+   ColumnDef.create({
+      property: "HOH_D",
+      headerLabel: "HOH D",
+      width: px100
+    }),
+  ];
+*/
