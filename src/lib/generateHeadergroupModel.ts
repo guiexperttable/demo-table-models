@@ -25,7 +25,7 @@ export interface FalconIf {
 // TODO hier gehts weiter
 export function createHeadergroupModel(): TableModelIf {
   const defaultRowHeight = 34;
-  const columnDefs = CellgroupFactory.buildColumnDefs(headerGroups);
+  const columnDefs = CellgroupFactory.buildColumnDefs(headerGroups); // TODO fix
   const headerAreaModel = new AreaModelCellGroups("header", headerGroups, columnDefs, defaultRowHeight);
 
   console.info("headerGroups", headerGroups);
@@ -34,8 +34,9 @@ export function createHeadergroupModel(): TableModelIf {
 
   const arrs = [
     {
-      "GOLD_AB":  12 * Math.floor(Math.random()*50),
-      "GOLD_A":  12 * Math.floor(Math.random()*50),
+      "GOLD":  11,
+      "GOLD_AB":  22,
+      "GOLD_A":  33,
       "GOLD_B":  12 * Math.floor(Math.random()*50),
       "GOLD_C":  12 * Math.floor(Math.random()*50),
       "GOLD_D":  12 * Math.floor(Math.random()*50),
