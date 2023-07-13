@@ -46,6 +46,10 @@ export const headerGroups: CellGroupIf[] = [
     data: "Hohenwarte",
     children: [
       {
+        data: "Sum",
+        property: "HOH_SUM",
+      },
+      {
         data: "HOH AB",
         toggle: true,
         property: "HOH_AB",
