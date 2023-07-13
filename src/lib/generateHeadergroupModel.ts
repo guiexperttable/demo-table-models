@@ -34,19 +34,19 @@ export function createHeadergroupModel(): TableModelIf {
 
   const arrs = [
     {
-      "GOLD":  11,
-      "GOLD_AB":  22,
-      "GOLD_A":  33,
-      "GOLD_B":  12 * Math.floor(Math.random()*50),
-      "GOLD_C":  12 * Math.floor(Math.random()*50),
-      "GOLD_D":  12 * Math.floor(Math.random()*50),
-      "GOLD_SUM_CD":  12 * Math.floor(Math.random()*50),
-      "HOH_AB":  12 * Math.floor(Math.random()*50),
-      "HOH_LOC":  12 * Math.floor(Math.random()*50),
-      "HOH_A":  12 * Math.floor(Math.random()*50),
-      "HOH_B":  12 * Math.floor(Math.random()*50),
-      "HOH_C":  12 * Math.floor(Math.random()*50),
-      "HOH_D":  12 * Math.floor(Math.random()*50),
+      "GOLD":  146,
+      "GOLD_AB":  63,
+      "GOLD_A":  31,
+      "GOLD_B":  32,
+      "GOLD_C":  41,
+      "GOLD_D":  42,
+      "GOLD_SUM_CD":  83,
+      "HOH_AB":  103,
+      "HOH_LOC":  22,
+      "HOH_A":  51,
+      "HOH_B":  52,
+      "HOH_C":  53,
+      "HOH_D":  54,
     }
   ];
   const bodyAreaModel = new AreaModelObjectArrayWithColumndefs<FalconIf>("body", arrs, columnDefs, 34);
